@@ -1,0 +1,30 @@
+﻿@model Flipped.Data.Invoice
+@using System.Reflection
+@using static System.Reflection.TypeExtensions
+
+@{
+    ViewData["Title"] = "Invoice Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Invoice</h4>
+    <hr />
+    @foreach (var property in Model.GetType().GetProperties(BindingFlags.Public | BindingFlags.Instance))
+    {
+    <dl class="row">
+        <dt class="col-sm-3">
+            @property.Name
+        </dt>
+        <dd class="col-sm-9">
+            <!-- Doesnt get the value for OfferAuthorisation yet-->
+            @property.GetValue(Model)
+        </dd>
+    </dl>
+    }
+</div>
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Edit</a><br>
+    <a asp-action="Index">Back to List</a>
+</div>
